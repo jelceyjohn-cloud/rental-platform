@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Admin Login{% endblock %}
+
+{% block content %}
+  <div class="form-wrapper narrow">
+    <h1>Admin Login</h1>
+    <p class="note">Default credentials: <b>admin</b> / <b>admin123</b> (change this in production)</p>
+
+    {% if error %}
+    <div class="server-errors"><ul><li>{{ error }}</li></ul></div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('admin_login') }}">
+      <div class="field">
+        <label>Username</label>
+        <input type="text" name="username">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password">
+      </div>
+      <button type="submit" class="submit-btn">Log In</button>
+    </form>
+  </div>
+{% endblock %}

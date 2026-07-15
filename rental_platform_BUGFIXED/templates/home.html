@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Browse Rentals - RentEase{% endblock %}
+
+{% block content %}
+  <div class="hero">
+    <h1>Find your next rental home</h1>
+    <p>Browse available properties and apply online in minutes.</p>
+  </div>
+
+  <form method="GET" action="{{ url_for('home') }}" class="search-bar">
+    <input type="text" name="city" placeholder="City (e.g. Coimbatore)" value="{{ city }}">
+    <input type="number" name="max_price" placeholder="Max monthly budget" value="{{ max_price }}">
+    <button type="submit">Search</button>
+  </form>
+
+  {% if properties|length == 0 %}
+    <p class="empty-state">No properties match your search. Try different filters.</p>
+  {% else %}
+  <div class="property-grid">
+    {% for prop in properties %}
+    <div class="property-card">
+      <img src="{{ prop.image_url or 'https://via.placeholder.com/400x220?text=Rental+Home' }}" alt="{{ prop.title }}">
+      <div class="property-card-body">
+        <h3>{{ prop.title }}</h3>
+        <p class="property-location">📍 {{ prop.city }}</p>
+        <p class="property-meta">{{ prop.bedrooms }} bed · {{ prop.bathrooms }} bath</p>
+        <p class="property-price">₹{{ prop.price }} / month</p>
+        <a href="{{ url_for('property_detail', property_id=prop.id) }}" class="btn-link">View Details</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endblock %}

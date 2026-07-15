@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Application Submitted{% endblock %}
+
+{% block content %}
+  <div class="form-wrapper">
+    <div class="success-msg">
+      <h3>✅ Application Submitted!</h3>
+      <p>Your application for <b>{{ prop.title }}</b> has been received.</p>
+      <p>The landlord will contact you within 2-3 business days.</p>
+    </div>
+    <a href="{{ url_for('home') }}" class="back-link">← Browse more listings</a>
+  </div>
+{% endblock %}

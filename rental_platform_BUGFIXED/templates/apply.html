@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Apply - {{ prop.title }}{% endblock %}
+
+{% block content %}
+  <div class="form-wrapper">
+    <h1>Apply for {{ prop.title }}</h1>
+    <p class="property-location">📍 {{ prop.city }} · ₹{{ prop.price }}/month</p>
+
+    {% if errors %}
+    <div class="server-errors">
+      <ul>
+        {% for err in errors %}<li>{{ err }}</li>{% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('apply', property_id=prop.id) }}">
+      <div class="field">
+        <label>Full name *</label>
+        <input type="text" name="applicant_name" value="{{ form_data.get('applicant_name', '') }}">
+      </div>
+      <div class="field">
+        <label>Email address *</label>
+        <input type="email" name="email" value="{{ form_data.get('email', '') }}">
+      </div>
+      <div class="field">
+        <label>Phone number *</label>
+        <input type="tel" name="phone" value="{{ form_data.get('phone', '') }}">
+      </div>
+      <div class="field">
+        <label>Move-in date *</label>
+        <input type="date" name="move_in_date" value="{{ form_data.get('move_in_date', '') }}">
+      </div>
+      <div class="field">
+        <label>Number of occupants</label>
+        <input type="number" name="occupants" min="1" value="{{ form_data.get('occupants', '1') }}">
+      </div>
+      <div class="field">
+        <label>Message to landlord (optional)</label>
+        <textarea name="message">{{ form_data.get('message', '') }}</textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Application</button>
+    </form>
+  </div>
+{% endblock %}

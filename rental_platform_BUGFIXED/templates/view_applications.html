@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}All Applications{% endblock %}
+
+{% block content %}
+  <h1>All Applications Received</h1>
+  {% if applications|length == 0 %}
+    <p class="empty-state">No applications yet.</p>
+  {% else %}
+  <table class="admin-table">
+    <thead>
+      <tr><th>Applicant</th><th>Property</th><th>Email</th><th>Phone</th><th>Move-in</th><th>Submitted</th></tr>
+    </thead>
+    <tbody>
+      {% for a in applications %}
+      <tr>
+        <td>{{ a.applicant_name }}</td>
+        <td>{{ a.property.title }}</td>
+        <td>{{ a.email }}</td>
+        <td>{{ a.phone }}</td>
+        <td>{{ a.move_in_date }}</td>
+        <td>{{ a.submitted_at.strftime('%Y-%m-%d %H:%M') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+  <a href="{{ url_for('admin_dashboard') }}" class="back-link">← Back to Dashboard</a>
+{% endblock %}

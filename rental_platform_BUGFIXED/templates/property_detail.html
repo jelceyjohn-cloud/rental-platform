@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ prop.title }} - RentEase{% endblock %}
+
+{% block content %}
+  <a href="{{ url_for('home') }}" class="back-link">← Back to listings</a>
+
+  <div class="detail-wrapper">
+    <img src="{{ prop.image_url or 'https://via.placeholder.com/700x350?text=Rental+Home' }}" alt="{{ prop.title }}" class="detail-image">
+
+    <h1>{{ prop.title }}</h1>
+    <p class="property-location">📍 {{ prop.address or prop.city }}, {{ prop.city }}</p>
+
+    <div class="detail-meta">
+      <span>{{ prop.bedrooms }} Bedrooms</span>
+      <span>{{ prop.bathrooms }} Bathrooms</span>
+      <span class="property-price">₹{{ prop.price }} / month</span>
+    </div>
+
+    <p class="detail-description">{{ prop.description or "No description provided." }}</p>
+
+    <a href="{{ url_for('apply', property_id=prop.id) }}" class="submit-btn detail-apply-btn">Apply for this property</a>
+  </div>
+{% endblock %}

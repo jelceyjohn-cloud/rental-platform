@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+  <div class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <div class="dashboard-stats">
+      <div class="stat-card"><span class="stat-number">{{ properties|length }}</span><span>Properties Listed</span></div>
+      <div class="stat-card"><span class="stat-number">{{ total_applications }}</span><span>Applications Received</span></div>
+    </div>
+  </div>
+
+  <div class="dashboard-actions">
+    <a href="{{ url_for('add_property') }}" class="submit-btn dashboard-btn">+ Add New Property</a>
+    <a href="{{ url_for('view_applications') }}" class="submit-btn dashboard-btn secondary">View All Applications</a>
+  </div>
+
+  <h2 class="section-title">Your Properties</h2>
+  <table class="admin-table">
+    <thead>
+      <tr><th>Title</th><th>City</th><th>Price</th><th>Applications</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      {% for prop in properties %}
+      <tr>
+        <td>{{ prop.title }}</td>
+        <td>{{ prop.city }}</td>
+        <td>₹{{ prop.price }}</td>
+        <td>{{ prop.applications|length }}</td>
+        <td>
+          <form method="POST" action="{{ url_for('delete_property', property_id=prop.id) }}" onsubmit="return confirm('Delete this property?');">
+            <button type="submit" class="delete-btn">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
